@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   Button,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -80,39 +81,41 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.recordText}>Sedicords</Text>
       <StatusBar style="auto" />
-
-      <View style={styles.topView}>
-        <Text style={{ padding: 20, fontSize: 20 }}>Your recordings</Text>
-        <View style={styles.recordingsList}>
-          <Text>
-            {" "}
-            {recordings.map((item, index) => {
-              return (
-                <View key={index} style={styles.recordingItem}>
-                  <Text style={styles.recordingName}>
-                    {" "}
-                    {index + 1} -{item.duration}
-                  </Text>
-                  <Pressable onPress={() => item.sound.replayAsync()}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}></Text>
-                  </Pressable>
-                  <Pressable onPress={playRecording}>
-                    <Text>▶️</Text>
-                  </Pressable>
-                </View>
-              );
-            })}
-          </Text>
-        </View>
-      </View>
+      <Text
+        style={{
+          padding: 20,
+          fontSize: 25,
+          fontWeight: "800",
+          alignSelf: "center",
+          marginTop: 55,
+          color: "orange",
+        }}
+      >
+        Your recordings
+      </Text>
+      <ScrollView style={styles.topView}>
+        {recordings.map((item, index) => {
+          return (
+            <View key={index} style={styles.recordingItem}>
+              <Text style={styles.recordingName}>
+                {index + 1} {item.duration}
+              </Text>
+              <Pressable onPress={() => item.sound.replayAsync()}>
+                <Text>▶️</Text>
+              </Pressable>
+            </View>
+          );
+        })}
+      </ScrollView>
       <View style={styles.bottomView}>
         <Pressable
           style={styles.btnStyle}
           onPress={recording ? stopRecording : startRecording}
         >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+          <Text
+            style={{ fontSize: 18, fontWeight: "bold", alignSelf: "center" }}
+          >
             {recording ? "Stop" : "Rec"}
           </Text>
         </Pressable>
@@ -132,15 +135,13 @@ const styles = StyleSheet.create({
   },
   recordText: {
     fontSize: 20,
-    color: "red",
+    fontWeight: "900",
+    color: "orange",
+    mariginTop: 10,
   },
   topView: {
     borderRadius: 50,
     marginBottom: 15,
-    backgroundColor: "#FF9B9B",
-    alignItems: "center",
-
-    height: "40%",
     width: "100%",
   },
   bottomView: {
@@ -153,11 +154,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   btnStyle: {
-    width: 80,
-    height: 80,
-    borderRadius: 80 / 2,
+    width: 90,
+    height: 90,
+    borderRadius: 90 / 2,
     padding: 20,
-    backgroundColor: "#FF2400",
+    backgroundColor: "orange",
     borderRadius: 80,
     alignItems: "center",
   },
@@ -168,12 +169,17 @@ const styles = StyleSheet.create({
   },
   recordingItem: {
     flexDirection: "row",
+    padding: 10,
     alignItems: "center",
     justifyContent: "space-between",
-    marginVertical: 10,
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderRadius: 15,
+    margin: 5,
   },
   recordingName: {
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: "700",
     flex: 1,
   },
   playButton: {
